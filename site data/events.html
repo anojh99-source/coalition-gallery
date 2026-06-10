@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events — Coalition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════
+   COALITION — DESIGN SYSTEM
+   Dark cinematic · Acid green · Underground
+═══════════════════════════════════════════ */
+
+:root {
+  --black:     #070707;
+  --black-2:   #0d0d0d;
+  --black-3:   #111111;
+  --white:     #f0f0f0;
+  --white-dim: rgba(240,240,240,0.5);
+  --white-faint: rgba(240,240,240,0.12);
+  --acid:      #c8ff00;
+  --acid-dim:  rgba(200,255,0,0.15);
+  --border:    rgba(240,240,240,0.08);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-ui:      'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--acid); }
+
+/* ── SELECTION ── */
+::selection { background: var(--acid); color: var(--black); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 20px 48px;
+  background: rgba(7,7,7,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.4s, padding 0.4s;
+}
+
+.nav-links {
+  justify-self: center;
+}
+
+.nav-cta {
+  justify-self: end;
+}
+
+.nav.scrolled {
+  background: rgba(7,7,7,0.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
+}
+.nav-logo:hover .nav-logo-mark { border-color: var(--acid); }
+
+.nav-logo-mark span {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.3px;
+  color: var(--white);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.75);
+  text-decoration: none;
+  transition: color 0.25s, letter-spacing 0.25s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--acid);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  letter-spacing: 3px;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--white); }
+.nav-links a.active::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--acid);
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── SECTION SYSTEM ── */
+.section {
+  padding: 100px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-wrap {
+  border-top: 1px solid var(--border);
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.section-eyebrow-text {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--acid);
+  white-space: nowrap;
+}
+
+.section-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-copy {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.2);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ── UTILITIES ── */
+.text-acid { color: var(--acid); }
+
+.btn-outline {
+  display: inline-block;
+  border: 1px solid rgba(240,240,240,0.25);
+  color: var(--white);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  cursor: pointer;
+  background: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--acid);
+  background: var(--acid);
+  color: var(--black);
+}
+
+.btn-solid {
+  display: inline-block;
+  background: var(--acid);
+  color: var(--black);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── PAGE FADE IN ── */
+body { animation: pageFade 0.6s ease forwards; }
+@keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .section { padding: 64px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+}
+
+</style>
+<style>
+.page-header {
+  padding: 120px 48px 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.page-title span { color: var(--acid); }
+
+/* NEXT EVENT FEATURE */
+.event-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.event-feature-img {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #070707 70%);
+  height: calc(100vh - 260px);
+  max-height: calc(100vh - 260px);
+  min-height: 400px;
+}
+
+.event-feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center 20%;
+  display: block;
+}
+
+
+
+
+
+.event-feature-badge {
+  position: absolute;
+  top: 32px; left: 32px;
+  background: var(--acid);
+  color: var(--black);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+}
+
+.event-feature-content {
+  padding: 32px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: var(--black-2);
+  overflow-y: auto;
+}
+
+.event-series {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 16px;
+}
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.event-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: 2px;
+  color: rgba(240,240,240,0.4);
+  margin-bottom: 40px;
+}
+
+.event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.event-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.event-meta-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.65);
+  min-width: 72px;
+}
+
+.event-meta-value {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+
+.event-lineup {
+  margin-bottom: 40px;
+}
+
+.event-lineup-title {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  margin-bottom: 12px;
+}
+
+.event-lineup-names {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2vw, 22px);
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.event-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* COUNTDOWN STRIP */
+.countdown-strip {
+  background: var(--black-3);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.countdown-strip-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.strip-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--acid);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.countdown-strip-digits {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.strip-unit { text-align: center; padding: 0 16px; }
+
+.strip-num {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  color: var(--white);
+  line-height: 1;
+  display: block;
+}
+
+.strip-lbl {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  display: block;
+}
+
+.strip-sep {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  color: rgba(240,240,240,0.15);
+  line-height: 1;
+}
+
+/* PAST EVENTS */
+.past-events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.past-event-card {
+  background: var(--black-2);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.past-event-card:hover { background: var(--black-3); }
+
+.past-event-flyer {
+  width: 160px;
+  flex-shrink: 0;
+  aspect-ratio: 9/16;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+  border: 1px solid var(--border);
+  background: var(--black-3);
+}
+
+.past-event-card:hover .past-event-flyer { opacity: 1; }
+
+.past-event-info { flex: 1; min-width: 0; }
+
+/* FLYER FLIP — for events with poster + lineup */
+.flyer-flip {
+  width: 160px;
+  flex-shrink: 0;
+  aspect-ratio: 9/16;
+  position: relative;
+  perspective: 600px;
+  cursor: pointer;
+}
+
+.flyer-flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flyer-flip:hover .flyer-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flyer-front,
+.flyer-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border);
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.flyer-back {
+  transform: rotateY(180deg);
+}
+
+.past-event-card:hover .flyer-front,
+.past-event-card:hover .flyer-back {
+  opacity: 1;
+}
+
+.flyer-flip-hint {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-ui);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--acid);
+  opacity: 0.7;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+
+.flyer-flip:hover .flyer-flip-hint { opacity: 0; }
+
+.past-event-num {
+  font-family: var(--font-display);
+  font-size: 80px;
+  color: rgba(240,240,240,0.04);
+  position: absolute;
+  top: -8px; right: 16px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.past-event-tag {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.past-event-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.past-event-date {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(240,240,240,0.4);
+  text-transform: uppercase;
+}
+
+.past-event-line {
+  width: 24px; height: 1px;
+  background: var(--acid);
+  margin: 20px 0;
+  transition: width 0.3s;
+}
+.past-event-card:hover .past-event-line { width: 48px; }
+
+.past-event-genres {
+  font-size: 14px;
+  color: rgba(240,240,240,0.55);
+  line-height: 1.7;
+}
+
+/* COLLAPSIBLE OLDER EVENTS */
+.past-events-older {
+  display: none;
+  grid-column: 1 / -1;
+}
+
+.past-events-older.open {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  grid-column: 1 / -1;
+}
+
+.view-more-btn {
+  grid-column: 1 / -1;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: rgba(240,240,240,0.4);
+  padding: 16px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s, color 0.2s;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.view-more-btn:hover { border-color: var(--acid); color: var(--white); }
+
+.view-more-arrow {
+  display: inline-block;
+  transition: transform 0.3s;
+  font-size: 10px;
+}
+
+.view-more-btn.open .view-more-arrow { transform: rotate(180deg); }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .page-header { padding: 120px 24px 56px; }
+  .event-feature { grid-template-columns: 1fr; }
+  .event-feature-img { min-height: 280px; }
+  .event-feature-content { padding: 40px 24px; }
+  .countdown-strip { flex-direction: column; gap: 20px; text-align: center; padding: 24px; }
+  .past-events-grid { grid-template-columns: 1fr; }
+}
+
+/* ── MOBILE NAV ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 110;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,7,7,0.97);
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: rgba(240,240,240,0.7);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.mobile-menu a:hover { color: var(--acid); }
+
+.mobile-menu .mobile-cta {
+  margin-top: 20px;
+  background: var(--acid);
+  color: var(--black);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark"><span>COALITION</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="events.html" class="active">Events</a></li>
+    <li><a href="archive.html">Archive</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="https://ra.co/events/2459299" target="_blank" rel="noopener">Tickets on RA</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="page-title">Events<span>.</span></h1>
+</div>
+
+<!-- NEXT EVENT FEATURE -->
+<div class="event-feature">
+  <div class="event-feature-img">
+    <img id="nextEventImg" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/Breakaway003.webp" alt="Next event flyer">
+    <div class="event-feature-badge">Free Before Midnight</div>
+  </div>
+  <div class="event-feature-content">
+    <div class="event-series" id="nextEventSeries">Breakaway · 004</div>
+    <div class="event-title">Breakaway</div>
+    <div class="event-subtitle">@ Dalston Den</div>
+
+    <div class="event-meta">
+      <div class="event-meta-row">
+        <span class="event-meta-label">Date</span>
+        <span class="event-meta-value" id="nextEventDate">Friday 12 June 2026</span>
+      </div>
+      <div class="event-meta-row">
+        <span class="event-meta-label">Doors</span>
+        <span class="event-meta-value" id="nextEventDoors">9PM — 3AM</span>
+      </div>
+      <div class="event-meta-row">
+        <span class="event-meta-label">Venue</span>
+        <span class="event-meta-value" id="nextEventVenue">Dalston Den, London E8</span>
+      </div>
+      <div class="event-meta-row">
+        <span class="event-meta-label">Entry</span>
+        <span class="event-meta-value" id="nextEventEntry">Free before midnight · £5 after</span>
+      </div>
+      <div class="event-meta-row">
+        <span class="event-meta-label">Sounds</span>
+        <span class="event-meta-value" id="nextEventSounds">Jungle · Breaks · Drum & Bass</span>
+      </div>
+    </div>
+
+    <div class="event-lineup">
+      <div class="event-lineup-title">Lineup</div>
+      <div class="event-lineup-names">
+        <span id="nextEventLineup">OS:MAN · MXW · Tallboy · Little Luce · Rifster · Bryn Brax B2B Whatsname · Hosted by zoneSL</span>
+      </div>
+    </div>
+
+    <div class="event-actions">
+      <a href="https://ra.co/events/2459299" target="_blank" rel="noopener" class="btn-solid next-event-ra">Get Tickets on RA</a>
+      <a href="archive.html" class="btn-outline">Past Events</a>
+    </div>
+  </div>
+</div>
+
+<!-- COUNTDOWN STRIP -->
+<div class="countdown-strip">
+  <div class="countdown-strip-label">
+    <div class="strip-dot"></div>
+    Counting down to doors
+  </div>
+  <div class="countdown-strip-digits">
+    <div class="strip-unit">
+      <span class="strip-num" id="sd">00</span>
+      <span class="strip-lbl">Days</span>
+    </div>
+    <span class="strip-sep">:</span>
+    <div class="strip-unit">
+      <span class="strip-num" id="sh">00</span>
+      <span class="strip-lbl">Hours</span>
+    </div>
+    <span class="strip-sep">:</span>
+    <div class="strip-unit">
+      <span class="strip-num" id="sm">00</span>
+      <span class="strip-lbl">Mins</span>
+    </div>
+    <span class="strip-sep">:</span>
+    <div class="strip-unit">
+      <span class="strip-num" id="ss">00</span>
+      <span class="strip-lbl">Secs</span>
+    </div>
+  </div>
+  <a href="https://ra.co/events/2459299" target="_blank" rel="noopener" class="btn-solid next-event-ra" style="font-size:11px;padding:10px 24px">Book Now</a>
+</div>
+
+
+<!-- UPCOMING -->
+<div class="section-wrap" id="upcomingSection" style="background:var(--black-3)">
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-eyebrow-text">Coming Up</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <div class="past-events-grid" id="upcomingGrid">
+      <div class="past-event-card">
+        <span class="past-event-num">005</span>
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/Breakaway NRG CRU Takeover.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">NRG CRU Takeover</span>
+        <div class="past-event-name">Breakaway 005</div>
+        <div class="past-event-date">Friday 26 June 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Announcement coming soon</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAST EVENTS -->
+<div class="section-wrap" style="background:var(--black)">
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-eyebrow-text">Past Events</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <div class="past-events-grid" id="pastEventsGrid" data-loaded="false">
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/Breakaway The Launch.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">Breakaway · 003</span>
+        <div class="past-event-name">The Launch Party</div>
+        <div class="past-event-date">Fri 5 June 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Drum & Bass · Breaks<br>Agility · Bryn Brax · Leo Selects · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2456453" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/Breakaway002.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">Breakaway · 002</span>
+        <div class="past-event-name">Pre-Residency</div>
+        <div class="past-event-date">Sat 16 May 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Drum & Bass<br>Bryn Brax · Highlander · Missy T · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2441588" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/Breakaway001.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">Breakaway · 001</span>
+        <div class="past-event-name">Pre-Residency</div>
+        <div class="past-event-date">Fri 1 May 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Hardcore · Breaks · Drum & Bass<br>Agility · Bryn Brax · Tallboy · Tilda · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2420935" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/DubFusion.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">DubFusion · Club Makossa</span>
+        <div class="past-event-name">DubFusion</div>
+        <div class="past-event-date">Fri 3 April 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Dubstep · Grime · Breaks · UKG · 140<br>Agility · Bryn Brax · Sez. · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2400714" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <div class="flyer-flip">
+          <div class="flyer-flip-inner">
+            <img class="flyer-front" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/DOUBLE GARAGE 1.webp" alt="Event poster" loading="lazy">
+            <img class="flyer-back" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/DOUBLE GARAGE 2.webp" alt="Event lineup" loading="lazy">
+          </div>
+          <span class="flyer-flip-hint">Lineup ↻</span>
+        </div>
+        <div class="past-event-info"><span class="past-event-tag">Double Garage · Dalston Den</span>
+        <div class="past-event-name">Double Garage</div>
+        <div class="past-event-date">Sat 31 January 2026</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">UKG · Dubstep · Grime · Breaks<br>Agility · A.N.T · Bryn Brax · Tallboy · zoneSL</div>
+        <a href="https://ra.co/events/2357733" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <div class="flyer-flip">
+          <div class="flyer-flip-inner">
+            <img class="flyer-front" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion Turbo 1.webp" alt="Event poster" loading="lazy">
+            <img class="flyer-back" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion Turbo 2.webp" alt="Event lineup" loading="lazy">
+          </div>
+          <span class="flyer-flip-hint">Lineup ↻</span>
+        </div>
+        <div class="past-event-info"><span class="past-event-tag">SubFusion · Sui Generis</span>
+        <div class="past-event-name">SubFusion: Turbo</div>
+        <div class="past-event-date">Sat 26 July 2025</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Drum & Bass · Techno · Footwork<br>Agility · Bryn Brax · Dave Zhu · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2214737" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <!-- OLDER EVENTS — collapsible -->
+      <div class="past-events-older" id="olderEvents">
+      <div class="past-event-card">
+        <div class="flyer-flip">
+          <div class="flyer-flip-inner">
+            <img class="flyer-front" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion 1.webp" alt="Event poster" loading="lazy">
+            <img class="flyer-back" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion 2.webp" alt="Event lineup" loading="lazy">
+          </div>
+          <span class="flyer-flip-hint">Lineup ↻</span>
+        </div>
+        <div class="past-event-info"><span class="past-event-tag">SubFusion · The Castle</span>
+        <div class="past-event-name">SubFusion</div>
+        <div class="past-event-date">Fri 4 April 2025</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Drum & Bass<br>VXRGO · CICELY · Agility · Bryn Brax · Dave Zhu · Whatsname · zoneSL</div>
+        <a href="https://ra.co/events/2067856" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/HOUSE N' GARAGE.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">House n' Garage · Kiss The Sky</span>
+        <div class="past-event-name">House n' Garage</div>
+        <div class="past-event-date">Sat 5 October 2024</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Acid House · Minimal · Speed Garage · Breaky UKG<br>Agility · Bryn Brax · Dave Zhu · Whatsname · Sideshow · Tom Oakley · zoneSL</div>
+        <a href="https://ra.co/events/1973691" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+      <div class="past-event-card">
+        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion At The Axis.webp" alt="Event flyer" loading="lazy">
+        <div class="past-event-info"><span class="past-event-tag">SubFusion · The Axis</span>
+        <div class="past-event-name">SubFusion</div>
+        <div class="past-event-date">Sat 1 June 2024</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">Jungle · Drum & Bass<br>OS:MAN · CITIZEN · Agility · Bryn Brax · Dave Zhu · Whatsname</div>
+        <a href="https://ra.co/events/1917529" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
+      </div>
+
+    
+      </div>
+      <button class="view-more-btn" id="viewMoreBtn">
+        <span>View Earlier Events</span>
+        <span class="view-more-arrow">▼</span>
+      </button></div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">Coalition © 2026</span>
+  <ul class="footer-links">
+    <li><a href="https://www.instagram.com/coalition.uk/" target="_blank">Instagram</a></li>
+    <li><a href="https://ra.co/promoters/142261" target="_blank">RA</a></li>
+  </ul>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+function updateCountdown() {
+  const target = new Date('2026-06-12T21:00:00');
+  const now    = new Date();
+  let diff     = target - now;
+  if (diff < 0) { const w = 7*24*60*60*1000; diff = w - (Math.abs(diff) % w); }
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('sd').textContent = String(d).padStart(2,'0');
+  document.getElementById('sh').textContent = String(h).padStart(2,'0');
+  document.getElementById('sm').textContent = String(m).padStart(2,'0');
+  document.getElementById('ss').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── COLLAPSIBLE OLDER EVENTS ──
+(function() {
+  const btn   = document.getElementById('viewMoreBtn');
+  const older = document.getElementById('olderEvents');
+  if (!btn || !older) return;
+  btn.addEventListener('click', function() {
+    const isOpen = older.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.querySelector('span').textContent = isOpen ? 'Hide Earlier Events' : 'View Earlier Events';
+  });
+})();
+
+// ── MOBILE NAV ──
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (!hamburger || !mobileMenu) return;
+
+  hamburger.addEventListener('click', function() {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+});
+
+// ── EVENTS FROM GOOGLE SHEETS ──
+const EVENTS_SHEET_ID = '11heynoNibd0wQ4HZm-Ss1iGi2EZvATRnrZmnEL371x8';
+const FLYER_BASE = 'https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/';
+
+async function loadEvents() {
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${EVENTS_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
+    const res  = await fetch(url);
+    const text = await res.text();
+
+    const rows = text.trim().split('\n').slice(1).map(line => {
+      const cols = [];
+      let cur = '', inQ = false;
+      for (const ch of line) {
+        if (ch === '"') inQ = !inQ;
+        else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+        else cur += ch;
+      }
+      cols.push(cur.trim());
+      return {
+        status:  cols[0] || '',
+        name:    cols[1] || '',
+        date:    cols[2] || '',
+        doors:   cols[3] || '',
+        entry:   cols[4] || '',
+        venue:   cols[5] || '',
+        lineup:  cols[6] || '',
+        ra_link: cols[7] || '',
+        flyer:   cols[8] || '',
+      };
+    });
+
+    const nextEvent      = rows.find(r => r.status === 'next');
+    const upcomingEvents = rows.filter(r => r.status === 'upcoming');
+    const pastEvents     = rows.filter(r => r.status === 'past');
+
+    if (nextEvent)         renderNextEvent(nextEvent);
+    if (upcomingEvents.length) renderUpcoming(upcomingEvents);
+    if (pastEvents.length) renderPastEvents(pastEvents);
+
+  } catch(e) {
+    console.warn('Could not load events:', e);
+  }
+}
+
+function flyerUrl(f) {
+  return f ? FLYER_BASE + encodeURIComponent(f) : '';
+}
+
+function renderNextEvent(e) {
+  const img = document.getElementById('nextEventImg');
+  if (img && e.flyer) img.src = flyerUrl(e.flyer);
+
+  const ids = {
+    nextEventSeries: e.name,
+    nextEventDate:   e.date,
+    nextEventDoors:  e.doors,
+    nextEventVenue:  e.venue,
+    nextEventEntry:  e.entry,
+    nextEventLineup: e.lineup,
+  };
+  Object.entries(ids).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  });
+
+  document.querySelectorAll('.next-event-ra').forEach(el => { el.href = e.ra_link; });
+}
+
+function renderUpcoming(events) {
+  const grid = document.getElementById('upcomingGrid');
+  if (!grid) return;
+  grid.innerHTML = events.map(e => `
+    <div class="past-event-card">
+      ${e.flyer ? `<img class="past-event-flyer" src="${flyerUrl(e.flyer)}" alt="Flyer" loading="lazy">` : ''}
+      <div class="past-event-info">
+        <span class="past-event-tag">Coming Up</span>
+        <div class="past-event-name">${e.name}</div>
+        <div class="past-event-date">${e.date}</div>
+        <div class="past-event-line"></div>
+        <div class="past-event-genres">${e.lineup}</div>
+        ${e.ra_link ? `<a href="${e.ra_link}" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function cardHTML(e) {
+  const hasFlip = e.flyer && e.flyer.match(/ 1\./);
+  const flyer2  = hasFlip ? flyerUrl(e.flyer.replace(/ 1\./, ' 2.')) : '';
+  const flyerEl = hasFlip
+    ? `<div class="flyer-flip"><div class="flyer-flip-inner">
+        <img class="flyer-front" src="${flyerUrl(e.flyer)}" alt="Poster" loading="lazy">
+        <img class="flyer-back" src="${flyer2}" alt="Lineup" loading="lazy">
+       </div><span class="flyer-flip-hint">Lineup ↻</span></div>`
+    : e.flyer ? `<img class="past-event-flyer" src="${flyerUrl(e.flyer)}" alt="Flyer" loading="lazy">` : '';
+
+  return `<div class="past-event-card">
+    ${flyerEl}
+    <div class="past-event-info">
+      <span class="past-event-tag">${e.venue}</span>
+      <div class="past-event-name">${e.name}</div>
+      <div class="past-event-date">${e.date}</div>
+      <div class="past-event-line"></div>
+      <div class="past-event-genres">${e.lineup}</div>
+      ${e.ra_link ? `<a href="${e.ra_link}" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderPastEvents(events) {
+  const grid = document.getElementById('pastEventsGrid');
+  if (!grid) return;
+
+  const visible = events.slice(0, 6);
+  const older   = events.slice(6);
+
+  grid.innerHTML = visible.map(cardHTML).join('') +
+    (older.length ? `
+      <div class="past-events-older" id="olderEvents">
+        ${older.map(cardHTML).join('')}
+      </div>
+      <button class="view-more-btn" id="viewMoreBtn">
+        <span>View Earlier Events</span>
+        <span class="view-more-arrow">▼</span>
+      </button>` : '');
+
+  const btn = document.getElementById('viewMoreBtn');
+  const old = document.getElementById('olderEvents');
+  if (btn && old) {
+    btn.addEventListener('click', function() {
+      const isOpen = old.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.querySelector('span').textContent = isOpen ? 'Hide Earlier Events' : 'View Earlier Events';
+    });
+  }
+}
+
+loadEvents();
+
+</script>
+
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="events.html">Events</a>
+  <a href="archive.html">Archive</a>
+  <a href="about.html">About</a>
+  <a href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
+</div>
+</body>
+</html>

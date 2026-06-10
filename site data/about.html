@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Coalition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════
+   COALITION — DESIGN SYSTEM
+   Dark cinematic · Acid green · Underground
+═══════════════════════════════════════════ */
+
+:root {
+  --black:     #070707;
+  --black-2:   #0d0d0d;
+  --black-3:   #111111;
+  --white:     #f0f0f0;
+  --white-dim: rgba(240,240,240,0.5);
+  --white-faint: rgba(240,240,240,0.12);
+  --acid:      #c8ff00;
+  --acid-dim:  rgba(200,255,0,0.15);
+  --border:    rgba(240,240,240,0.08);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-ui:      'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--acid); }
+
+/* ── SELECTION ── */
+::selection { background: var(--acid); color: var(--black); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 20px 48px;
+  background: rgba(7,7,7,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.4s, padding 0.4s;
+}
+
+.nav-links {
+  justify-self: center;
+}
+
+.nav-cta {
+  justify-self: end;
+}
+
+.nav.scrolled {
+  background: rgba(7,7,7,0.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
+}
+.nav-logo:hover .nav-logo-mark { border-color: var(--acid); }
+
+.nav-logo-mark span {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.3px;
+  color: var(--white);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.75);
+  text-decoration: none;
+  transition: color 0.25s, letter-spacing 0.25s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--acid);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  letter-spacing: 3px;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--white); }
+.nav-links a.active::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--acid);
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── SECTION SYSTEM ── */
+.section {
+  padding: 100px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-wrap {
+  border-top: 1px solid var(--border);
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.section-eyebrow-text {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--acid);
+  white-space: nowrap;
+}
+
+.section-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-copy {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.2);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ── UTILITIES ── */
+.text-acid { color: var(--acid); }
+
+.btn-outline {
+  display: inline-block;
+  border: 1px solid rgba(240,240,240,0.25);
+  color: var(--white);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  cursor: pointer;
+  background: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--acid);
+  background: var(--acid);
+  color: var(--black);
+}
+
+.btn-solid {
+  display: inline-block;
+  background: var(--acid);
+  color: var(--black);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── PAGE FADE IN ── */
+body { animation: pageFade 0.6s ease forwards; }
+@keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .section { padding: 64px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+}
+
+</style>
+<style>
+.page-header {
+  padding: 160px 48px 80px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 0;
+}
+
+.page-title span { color: var(--acid); }
+
+/* MANIFESTO */
+.manifesto-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.manifesto-left {
+  padding: 80px 48px;
+  border-right: 1px solid var(--border);
+}
+
+.manifesto-statement {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 46px);
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 40px;
+}
+
+.manifesto-statement em {
+  color: var(--acid);
+  font-style: normal;
+}
+
+.manifesto-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(240,240,240,0.55);
+  max-width: 480px;
+}
+
+.manifesto-body p + p { margin-top: 20px; }
+
+.manifesto-right {
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
+
+.stat-block {}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 80px);
+  color: var(--white);
+  line-height: 1;
+  display: block;
+}
+
+.stat-num span { color: var(--acid); }
+
+.stat-label {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.65);
+  margin-top: 8px;
+  display: block;
+}
+
+.stat-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+
+
+/* TEAM */
+.team-intro {
+  padding: 80px 48px 48px;
+}
+
+.team-statement {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.8vw, 36px);
+  letter-spacing: 1px;
+  color: rgba(240,240,240,0.5);
+  max-width: 720px;
+  line-height: 1.3;
+}
+
+.team-statement strong {
+  color: var(--white);
+  font-weight: normal;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin: 0 48px 80px;
+}
+
+.member-card {
+  background: var(--black-2);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.member-card:hover { background: var(--black-3); }
+
+/* Placeholder avatar */
+.member-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.member-avatar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 30%, rgba(200,255,0,0.08), transparent 60%);
+}
+
+.member-avatar-initials {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: rgba(240,240,240,0.3);
+}
+
+.member-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+.member-role {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 20px;
+}
+
+.member-line {
+  width: 20px;
+  height: 1px;
+  background: var(--border);
+  transition: width 0.3s, background 0.3s;
+}
+
+.member-card:hover .member-line {
+  width: 36px;
+  background: var(--acid);
+}
+
+/* RESIDENCY INFO */
+.residency-wrap {
+  margin: 0 48px 80px;
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.residency-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.residency-venue {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 24px;
+}
+
+.residency-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(240,240,240,0.5);
+}
+
+.residency-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.residency-detail-row {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.residency-detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.residency-detail-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.65);
+  min-width: 80px;
+}
+
+.residency-detail-value {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: rgba(240,240,240,0.7);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .page-header { padding: 120px 24px 56px; }
+  .manifesto-wrap { grid-template-columns: 1fr; }
+  .manifesto-left { border-right: none; border-bottom: 1px solid var(--border); padding: 56px 24px; }
+  .manifesto-right { padding: 40px 24px; }
+  .team-intro { padding: 56px 24px 32px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); margin: 0 24px 56px; }
+  .residency-wrap { grid-template-columns: 1fr; margin: 0 24px 56px; padding: 36px 28px; }
+}
+
+/* ── MOBILE NAV ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 110;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,7,7,0.97);
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: rgba(240,240,240,0.7);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.mobile-menu a:hover { color: var(--acid); }
+
+.mobile-menu .mobile-cta {
+  margin-top: 20px;
+  background: var(--acid);
+  color: var(--black);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* MEMBER PHOTO */
+.member-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  position: relative;
+  background: var(--black-3);
+}
+
+.member-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(20%) brightness(0.9);
+  transition: filter 0.3s;
+}
+
+.member-card:hover .member-avatar img { filter: grayscale(0%) brightness(1); }
+
+.member-avatar-initials {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: rgba(240,240,240,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark"><span>COALITION</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="archive.html">Archive</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="https://ra.co/events/2459299" target="_blank" rel="noopener">Tickets on RA</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1 class="page-title">About<span>.</span></h1>
+</div>
+
+<!-- MANIFESTO -->
+<div class="manifesto-wrap">
+  <div class="manifesto-left">
+    <div class="manifesto-statement">
+      Serious underground sounds.<br>
+      <em>No nonsense.</em><br>
+      Curated by people<br>that get it.
+    </div>
+    <div class="manifesto-body">
+      <p>Coalition is a London-based events collective bringing underground sounds to grassroots venues across the city. Across jungle, breakbeat, garage, drum & bass, hardcore, house, grime and dubstep — we're not about hype. We're about the music, the selectors, and the community built around both.</p>
+      <p>Our Breakaway residency at Dalston Den is a jungle and breakbeat-focused event, running consecutive Fridays through summer 2026. Residents and guest selectors from deep within the underground scene. No filler, no nonsense — just proper music from people who live it.</p>
+    </div>
+  </div>
+  <div class="manifesto-right">
+    <div class="stat-block">
+      <span class="stat-num">01<span>.</span></span>
+      <span class="stat-label">Residency — Breakaway @ Dalston Den</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-block">
+      <span class="stat-num">08<span>.</span></span>
+      <span class="stat-label">Residents & Crew Members</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-block">
+      <span class="stat-num">08<span>.</span></span>
+      <span class="stat-label">Sounds — Jungle · Breaks · D&B · Hardcore · Garage · House · Grime · Dubstep</span>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div class="team-intro">
+  <p class="team-statement">
+    <strong>Eight selectors and hosts.</strong> All London underground. All here because they love the music.
+  </p>
+</div>
+
+<div class="team-grid">
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/blake.jpg" alt="Blake" loading="lazy">
+    </div>
+    <div class="member-name">Blake</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/_dj_blake/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/djblake1" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/bryn.jpg" alt="Bryn Brax" loading="lazy">
+    </div>
+    <div class="member-name">Bryn Brax</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/brynbrax/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/basedcargo" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/dave.jpg" alt="Dave Zhu" loading="lazy">
+    </div>
+    <div class="member-name">Dave Zhu</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/djdavezhu__/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/dav1dzhu" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/agility.jpg" alt="Agility" loading="lazy">
+    </div>
+    <div class="member-name">Agility</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/dj.agility/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/djagility" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/drumsworth.jpg" alt="Drumsworth" loading="lazy">
+    </div>
+    <div class="member-name">Drumsworth</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/drumsworth/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/drumsworth" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/George%20OG.jpg" alt="George OG" loading="lazy">
+    </div>
+    <div class="member-name">George OG</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/georgeogdnb/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/user-215440342" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/Whatsname.jpg" alt="Whatsname" loading="lazy">
+    </div>
+    <div class="member-name">Whatsname</div>
+    <div class="member-role">DJ · Resident</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/djwhatsname/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/basedcargo" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+  <div class="member-card">
+    <div class="member-avatar">
+      <img src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Members/zonesl.jpg" alt="zoneSL" loading="lazy">
+    </div>
+    <div class="member-name">zoneSL</div>
+    <div class="member-role">MC · Host</div>
+    <div class="member-line"></div>
+    <div style="margin-top:4px;">
+      <a href="https://www.instagram.com/zonesl/" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:var(--acid);opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">Instagram</a>
+      <a href="https://soundcloud.com/zonesl" target="_blank" rel="noopener" style="font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color 0.2s;display:block;margin-bottom:4px;color:rgba(240,240,240,0.4);" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color='rgba(240,240,240,0.4)'">SoundCloud</a>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RESIDENCY INFO -->
+<div class="residency-wrap">
+  <div>
+    <div class="residency-title">Breakaway</div>
+    <div class="residency-venue">Residency · Dalston Den</div>
+    <p class="residency-desc">Over the summer of 2026, Coalition brings consecutive Fridays of underground sound to Dalston Den. Each week a different flavour of jungle and breakbeat — with rotating guests, crew takeovers and selectors from deep in the underground scene alongside the residents.</p>
+  </div>
+  <div class="residency-details">
+    <div class="residency-detail-row">
+      <span class="residency-detail-label">Venue</span>
+      <span class="residency-detail-value">Dalston Den, London E8</span>
+    </div>
+    <div class="residency-detail-row">
+      <span class="residency-detail-label">Frequency</span>
+      <span class="residency-detail-value">Consecutive Fridays · Summer 2026</span>
+    </div>
+    <div class="residency-detail-row">
+      <span class="residency-detail-label">Doors</span>
+      <span class="residency-detail-value">9PM — Late</span>
+    </div>
+    <div class="residency-detail-row">
+      <span class="residency-detail-label">Entry</span>
+      <span class="residency-detail-value">Free before midnight · £5 after</span>
+    </div>
+    <div class="residency-detail-row">
+      <span class="residency-detail-label">Tickets</span>
+      <span class="residency-detail-value"><a href="https://ra.co/promoters/142261" target="_blank" style="color:var(--acid);text-decoration:none;">Resident Advisor</a></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">Coalition © 2026</span>
+  <ul class="footer-links">
+    <li><a href="https://www.instagram.com/coalition.uk/" target="_blank">Instagram</a></li>
+    <li><a href="https://ra.co/promoters/142261" target="_blank">RA</a></li>
+  </ul>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── MOBILE NAV ──
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (!hamburger || !mobileMenu) return;
+
+  hamburger.addEventListener('click', function() {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+});
+</script>
+
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="events.html">Events</a>
+  <a href="archive.html">Archive</a>
+  <a href="about.html">About</a>
+  <a href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
+</div>
+</body>
+</html>

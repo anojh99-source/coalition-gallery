@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive — Coalition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════
+   COALITION — DESIGN SYSTEM
+   Dark cinematic · Acid green · Underground
+═══════════════════════════════════════════ */
+
+:root {
+  --black:     #070707;
+  --black-2:   #0d0d0d;
+  --black-3:   #111111;
+  --white:     #f0f0f0;
+  --white-dim: rgba(240,240,240,0.5);
+  --white-faint: rgba(240,240,240,0.12);
+  --acid:      #c8ff00;
+  --acid-dim:  rgba(200,255,0,0.15);
+  --border:    rgba(240,240,240,0.08);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-ui:      'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--acid); }
+
+/* ── SELECTION ── */
+::selection { background: var(--acid); color: var(--black); }
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 20px 48px;
+  background: rgba(7,7,7,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.4s, padding 0.4s;
+}
+
+.nav-links {
+  justify-self: center;
+}
+
+.nav-cta {
+  justify-self: end;
+}
+
+.nav.scrolled {
+  background: rgba(7,7,7,0.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 44px; height: 44px;
+  border: 1.5px solid var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s;
+}
+.nav-logo:hover .nav-logo-mark { border-color: var(--acid); }
+
+.nav-logo-mark span {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 8px;
+  letter-spacing: 0.3px;
+  color: var(--white);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.75);
+  text-decoration: none;
+  transition: color 0.25s, letter-spacing 0.25s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--acid);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  letter-spacing: 3px;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--white); }
+.nav-links a.active::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--acid);
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── SECTION SYSTEM ── */
+.section {
+  padding: 100px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-wrap {
+  border-top: 1px solid var(--border);
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.section-eyebrow-text {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--acid);
+  white-space: nowrap;
+}
+
+.section-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-copy {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.2);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ── UTILITIES ── */
+.text-acid { color: var(--acid); }
+
+.btn-outline {
+  display: inline-block;
+  border: 1px solid rgba(240,240,240,0.25);
+  color: var(--white);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s, color 0.3s;
+  cursor: pointer;
+  background: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--acid);
+  background: var(--acid);
+  color: var(--black);
+}
+
+.btn-solid {
+  display: inline-block;
+  background: var(--acid);
+  color: var(--black);
+  padding: 14px 36px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── PAGE FADE IN ── */
+body { animation: pageFade 0.6s ease forwards; }
+@keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .nav { padding: 16px 24px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .section { padding: 64px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
+}
+
+</style>
+<style>
+.page-header {
+  padding: 160px 48px 80px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.page-title span { color: var(--acid); }
+
+.page-header-meta {
+  text-align: right;
+  padding-bottom: 8px;
+}
+
+.photo-count {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  color: rgba(240,240,240,0.15);
+  line-height: 1;
+}
+
+.photo-count-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+}
+
+/* FILTER BAR */
+.filter-bar {
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 4px;
+  background: var(--black-2);
+}
+
+.filter-btn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.4);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { color: var(--white); border-color: var(--border); }
+.filter-btn.active { color: var(--black); background: var(--acid); border-color: var(--acid); }
+
+/* GALLERY */
+.gallery-section { padding: 48px; }
+
+.event-block { margin-bottom: 64px; }
+
+.event-block-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.event-block-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: rgba(240,240,240,0.25);
+}
+
+.event-block-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.event-block-date {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.3);
+  margin-left: auto;
+}
+
+.event-block-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+}
+
+.masonry-grid .g-thumb:nth-child(5n+1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.g-thumb {
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: var(--black-3);
+}
+
+.g-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease, filter 0.4s ease;
+  filter: brightness(0.8) saturate(0.85);
+}
+
+.g-thumb:hover img {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1);
+}
+
+.g-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7,7,7,0);
+  transition: background 0.3s;
+}
+
+.g-thumb:hover .g-thumb-overlay { background: rgba(7,7,7,0.2); }
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.97);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-controls {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.lb-btn {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  transition: border-color 0.2s, color 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.lb-btn:hover { border-color: var(--acid); color: var(--acid); }
+
+.lb-counter {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(240,240,240,0.4);
+  padding: 0 16px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 28px; right: 36px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(240,240,240,0.4);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.lightbox-close:hover { color: var(--white); }
+
+@media (max-width: 768px) {
+  .page-header { padding: 120px 24px 48px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .filter-bar { padding: 16px 24px; overflow-x: auto; }
+  .gallery-section { padding: 32px 24px; }
+  .masonry-grid { grid-template-columns: repeat(2, 1fr); }
+  .masonry-grid .g-thumb:nth-child(5n+1) { grid-column: span 2; }
+}
+
+/* ── MOBILE NAV ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 110;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,7,7,0.97);
+  z-index: 105;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: rgba(240,240,240,0.7);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.mobile-menu a:hover { color: var(--acid); }
+
+.mobile-menu .mobile-cta {
+  margin-top: 20px;
+  background: var(--acid);
+  color: var(--black);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark"><span>COALITION</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="events.html">Events</a></li>
+    <li><a href="archive.html" class="active">Archive</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="nav-cta" href="https://ra.co/events/2459299" target="_blank" rel="noopener">Tickets on RA</a>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-title">Archive<span>.</span></h1>
+  <div class="page-header-meta">
+    <div class="photo-count" id="photoCount">9</div>
+    <div class="photo-count-label">Photos</div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Events</button>
+  <button class="filter-btn" data-filter="breakaway-001">Breakaway 001</button>
+</div>
+
+<div class="gallery-section">
+  <div class="event-block" data-event="breakaway-001">
+    <div class="event-block-header">
+      <span class="event-block-num">001</span>
+      <span class="event-block-name">Breakaway — The Launch Party</span>
+      <div class="event-block-divider"></div>
+      <span class="event-block-date">6 June 2026</span>
+    </div>
+    <div class="masonry-grid" id="mainGrid"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">Close ✕</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <div class="lightbox-controls">
+    <button class="lb-btn" id="lbPrev">&#8592;</button>
+    <span class="lb-counter" id="lbCounter">1 / 9</span>
+    <button class="lb-btn" id="lbNext">&#8594;</button>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">Coalition © 2026</span>
+  <ul class="footer-links">
+    <li><a href="https://www.instagram.com/coalition.uk/" target="_blank">Instagram</a></li>
+    <li><a href="https://ra.co/promoters/142261" target="_blank">RA</a></li>
+  </ul>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── GITHUB CONFIG ──
+// To add a new album: create a folder under images/ in your GitHub repo
+// and upload photos. The site discovers all folders automatically.
+
+const GITHUB_USER = 'anojh99-source';
+const GITHUB_REPO = 'coalition-gallery';
+
+let ALL_IMAGES = [];
+let lbIndex    = 0;
+
+async function loadAlbums() {
+  const container = document.querySelector('.gallery-section');
+  container.innerHTML = '<p style="font-family:var(--font-ui);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,240,240,0.2);padding:40px 0">Loading gallery...</p>';
+
+  let totalPhotos = 0;
+  const blocks = [];
+
+  try {
+    // Step 1 — fetch all folders under images/
+    const rootRes     = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/images`);
+    const rootContents = await rootRes.json();
+
+    if (!Array.isArray(rootContents)) throw new Error('Could not read images folder');
+
+    // Explicit order — newest first
+    const FOLDER_ORDER = ['Breakaway 002', 'Double Garage', 'SubFusion Turbo'];
+    const allFolders = rootContents.filter(f => f.type === 'dir' && !['flyers','Flyers','FLYERS','flyer','Flyer','members','Members','Members'].includes(f.name));
+    const folders = allFolders.sort((a, b) => {
+      const ai = FOLDER_ORDER.indexOf(a.name);
+      const bi = FOLDER_ORDER.indexOf(b.name);
+      if (ai === -1 && bi === -1) return b.name.localeCompare(a.name);
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+
+    if (folders.length === 0) {
+      container.innerHTML = '<p style="font-family:var(--font-ui);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,240,240,0.2);padding:40px 0">No albums yet.</p>';
+      return;
+    }
+
+    // Step 2 — fetch each folder's contents
+    for (const folder of folders) {
+      const folderRes  = await fetch(folder.url);
+      const folderFiles = await folderRes.json();
+
+      if (!Array.isArray(folderFiles)) continue;
+
+      const images = folderFiles
+        .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name))
+        .map(f => f.download_url.replace("https://raw.githubusercontent.com/", "https://cdn.jsdelivr.net/gh/").replace("/main/", "@main/"));
+
+      if (images.length === 0) continue;
+
+      totalPhotos += images.length;
+      const startIndex = ALL_IMAGES.length;
+      ALL_IMAGES = ALL_IMAGES.concat(images);
+
+      // Build event block — use folder name as title
+      const displayName = folder.name.replace(/-/g, ' ');
+      const block = document.createElement('div');
+      block.className = 'event-block';
+      block.innerHTML = `
+        <div class="event-block-header">
+          <span class="event-block-name">${displayName}</span>
+          <div class="event-block-divider"></div>
+          <span class="event-block-date">${images.length} photos</span>
+        </div>
+        <div class="masonry-grid">
+          ${images.map((src, i) => `
+            <div class="g-thumb" data-index="${startIndex + i}">
+              <img src="${src}" alt="${displayName} photo ${i+1}" loading="lazy">
+              <div class="g-thumb-overlay"></div>
+            </div>`).join('')}
+        </div>`;
+
+      blocks.push(block);
+    }
+
+    // Render all blocks
+    container.innerHTML = '';
+    blocks.forEach(b => {
+      container.appendChild(b);
+      b.querySelectorAll('.g-thumb').forEach(t => {
+        t.addEventListener('click', () => openLightbox(+t.dataset.index));
+      });
+    });
+
+    document.getElementById('photoCount').textContent = totalPhotos;
+
+    // Update filter bar with real album names
+    const filterBar = document.querySelector('.filter-bar');
+    filterBar.innerHTML = '<button class="filter-btn active" data-filter="all">All Events</button>' +
+      folders.map(f => `<button class="filter-btn" data-filter="${f.name.toLowerCase().replace(/\s+/g,'-')}">${f.name.replace(/-/g,' ')}</button>`).join('');
+
+    // Filter functionality
+    filterBar.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.event-block').forEach(block => {
+          block.style.display = (filter === 'all' || block.querySelector('.event-block-name').textContent.toLowerCase().replace(/\s+/g,'-') === filter)
+            ? 'block' : 'none';
+        });
+      });
+    });
+
+  } catch(e) {
+    console.error('Gallery error:', e);
+    container.innerHTML = '<p style="font-family:var(--font-ui);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(240,240,240,0.2);padding:40px 0">Could not load gallery.</p>';
+  }
+}
+
+function openLightbox(idx) {
+  lbIndex = idx;
+  document.getElementById('lbImg').src = ALL_IMAGES[lbIndex];
+  document.getElementById('lbCounter').textContent = `${lbIndex+1} / ${ALL_IMAGES.length}`;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+loadAlbums();
+
+document.getElementById('lbClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
+
+document.getElementById('lbPrev').addEventListener('click', () => {
+  lbIndex = (lbIndex - 1 + ALL_IMAGES.length) % ALL_IMAGES.length;
+  document.getElementById('lbImg').src = ALL_IMAGES[lbIndex];
+  document.getElementById('lbCounter').textContent = `${lbIndex+1} / ${ALL_IMAGES.length}`;
+});
+
+document.getElementById('lbNext').addEventListener('click', () => {
+  lbIndex = (lbIndex + 1) % ALL_IMAGES.length;
+  document.getElementById('lbImg').src = ALL_IMAGES[lbIndex];
+  document.getElementById('lbCounter').textContent = `${lbIndex+1} / ${ALL_IMAGES.length}`;
+});
+
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) document.getElementById('lightbox').classList.remove('open');
+});
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft')  document.getElementById('lbPrev').click();
+  if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+  if (e.key === 'Escape')     document.getElementById('lbClose').click();
+});
+
+// ── MOBILE NAV ──
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (!hamburger || !mobileMenu) return;
+
+  hamburger.addEventListener('click', function() {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+});
+</script>
+
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="events.html">Events</a>
+  <a href="archive.html">Archive</a>
+  <a href="about.html">About</a>
+  <a href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
+</div>
+</body>
+</html>
