@@ -773,6 +773,7 @@ body { animation: pageFade 0.6s ease forwards; }
   <ul class="nav-links">
     <li><a href="events.html" class="active">Events</a></li>
     <li><a href="archive.html">Archive</a></li>
+    <li><a href="onair.html">On Air</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -889,10 +890,6 @@ body { animation: pageFade 0.6s ease forwards; }
 <!-- PAST EVENTS -->
 <div class="section-wrap" style="background:var(--black)">
   <div class="section">
-    <div class="section-eyebrow">
-      <span class="section-eyebrow-text">Past Events</span>
-      <div class="section-eyebrow-line"></div>
-    </div>
     <div class="past-events-grid" id="pastEventsGrid" data-loaded="false">
 
       <div class="past-event-card">
@@ -967,50 +964,7 @@ body { animation: pageFade 0.6s ease forwards; }
         <a href="https://ra.co/events/2214737" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
       </div>
 
-      <!-- OLDER EVENTS — collapsible -->
-      <div class="past-events-older" id="olderEvents">
-      <div class="past-event-card">
-        <div class="flyer-flip">
-          <div class="flyer-flip-inner">
-            <img class="flyer-front" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion 1.webp" alt="Event poster" loading="lazy">
-            <img class="flyer-back" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion 2.webp" alt="Event lineup" loading="lazy">
-          </div>
-          <span class="flyer-flip-hint">Lineup ↻</span>
-        </div>
-        <div class="past-event-info"><span class="past-event-tag">SubFusion · The Castle</span>
-        <div class="past-event-name">SubFusion</div>
-        <div class="past-event-date">Fri 4 April 2025</div>
-        <div class="past-event-line"></div>
-        <div class="past-event-genres">Jungle · Drum & Bass<br>VXRGO · CICELY · Agility · Bryn Brax · Dave Zhu · Whatsname · zoneSL</div>
-        <a href="https://ra.co/events/2067856" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
-      </div>
-
-      <div class="past-event-card">
-        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/HOUSE N' GARAGE.webp" alt="Event flyer" loading="lazy">
-        <div class="past-event-info"><span class="past-event-tag">House n' Garage · Kiss The Sky</span>
-        <div class="past-event-name">House n' Garage</div>
-        <div class="past-event-date">Sat 5 October 2024</div>
-        <div class="past-event-line"></div>
-        <div class="past-event-genres">Acid House · Minimal · Speed Garage · Breaky UKG<br>Agility · Bryn Brax · Dave Zhu · Whatsname · Sideshow · Tom Oakley · zoneSL</div>
-        <a href="https://ra.co/events/1973691" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
-      </div>
-
-      <div class="past-event-card">
-        <img class="past-event-flyer" src="https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/SubFusion At The Axis.webp" alt="Event flyer" loading="lazy">
-        <div class="past-event-info"><span class="past-event-tag">SubFusion · The Axis</span>
-        <div class="past-event-name">SubFusion</div>
-        <div class="past-event-date">Sat 1 June 2024</div>
-        <div class="past-event-line"></div>
-        <div class="past-event-genres">Jungle · Drum & Bass<br>OS:MAN · CITIZEN · Agility · Bryn Brax · Dave Zhu · Whatsname</div>
-        <a href="https://ra.co/events/1917529" target="_blank" rel="noopener" style="display:inline-block;margin-top:16px;font-family:var(--font-ui);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acid);text-decoration:none;">RA →</a></div>
-      </div>
-
-    
-      </div>
-      <button class="view-more-btn" id="viewMoreBtn">
-        <span>View Earlier Events</span>
-        <span class="view-more-arrow">▼</span>
-      </button></div>
+      <!-- OLDER EVENTS — collapsible --></div>
   </div>
 </div>
 
@@ -1019,6 +973,7 @@ body { animation: pageFade 0.6s ease forwards; }
   <ul class="footer-links">
     <li><a href="https://www.instagram.com/coalition.uk/" target="_blank">Instagram</a></li>
     <li><a href="https://ra.co/promoters/142261" target="_blank">RA</a></li>
+    <li><a href="#" id="pressKitLink">Press Kit ↓</a></li>
   </ul>
 </footer>
 
@@ -1027,11 +982,13 @@ window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
 });
 
+// Target date is set from the Google Sheet once events load (see parseEventDateTime below)
+let countdownTarget = null;
+
 function updateCountdown() {
-  const target = new Date('2026-06-12T21:00:00');
-  const now    = new Date();
-  let diff     = target - now;
-  if (diff < 0) { const w = 7*24*60*60*1000; diff = w - (Math.abs(diff) % w); }
+  if (!countdownTarget) return;
+  let diff = countdownTarget - new Date();
+  if (diff < 0) diff = 0;
   const d = Math.floor(diff/86400000);
   const h = Math.floor((diff%86400000)/3600000);
   const m = Math.floor((diff%3600000)/60000);
@@ -1081,6 +1038,25 @@ document.addEventListener('DOMContentLoaded', function() {
 const EVENTS_SHEET_ID = '11heynoNibd0wQ4HZm-Ss1iGi2EZvATRnrZmnEL371x8';
 const FLYER_BASE = 'https://cdn.jsdelivr.net/gh/anojh99-source/coalition-gallery@main/images/Flyers/';
 
+const MONTHS = { january:0, february:1, march:2, april:3, may:4, june:5,
+                 july:6, august:7, september:8, october:9, november:10, december:11 };
+
+function parseEventDateTime(dateStr, doorsStr) {
+  const dm = (dateStr || '').match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!dm) return null;
+  const day = parseInt(dm[1],10), month = MONTHS[dm[2].toLowerCase()], year = parseInt(dm[3],10);
+  if (month === undefined) return null;
+  let hour = 21, min = 0;
+  const tm = (doorsStr || '').match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+  if (tm) {
+    hour = parseInt(tm[1],10); min = tm[2] ? parseInt(tm[2],10) : 0;
+    const pm = /pm/i.test(tm[3]);
+    if (pm && hour !== 12) hour += 12;
+    if (!pm && hour === 12) hour = 0;
+  }
+  return new Date(year, month, day, hour, min, 0);
+}
+
 async function loadEvents() {
   try {
     const url = `https://docs.google.com/spreadsheets/d/${EVENTS_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
@@ -1097,7 +1073,7 @@ async function loadEvents() {
       }
       cols.push(cur.trim());
       return {
-        status:  cols[0] || '',
+        status:  (cols[0] || '').toLowerCase().trim(),
         name:    cols[1] || '',
         date:    cols[2] || '',
         doors:   cols[3] || '',
@@ -1112,6 +1088,15 @@ async function loadEvents() {
     const nextEvent      = rows.find(r => r.status === 'next');
     const upcomingEvents = rows.filter(r => r.status === 'upcoming');
     const pastEvents     = rows.filter(r => r.status === 'past');
+
+    // Countdown target: soonest future next/upcoming event, else the labelled "next" row
+    const now = Date.now();
+    const future = [...(nextEvent ? [nextEvent] : []), ...upcomingEvents]
+      .map(e => ({ e, dt: parseEventDateTime(e.date, e.doors) }))
+      .filter(x => x.dt && x.dt.getTime() > now)
+      .sort((a, b) => a.dt - b.dt);
+    if (future.length) countdownTarget = future[0].dt;
+    else if (nextEvent) countdownTarget = parseEventDateTime(nextEvent.date, nextEvent.doors);
 
     if (nextEvent)         renderNextEvent(nextEvent);
     if (upcomingEvents.length) renderUpcoming(upcomingEvents);
@@ -1224,6 +1209,7 @@ loadEvents();
   <a href="index.html">Home</a>
   <a href="events.html">Events</a>
   <a href="archive.html">Archive</a>
+  <a href="onair.html">On Air</a>
   <a href="about.html">About</a>
   <a href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
 </div>

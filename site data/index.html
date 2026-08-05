@@ -1011,6 +1011,57 @@ body { animation: pageFade 0.6s ease forwards; }
   .nav-cta { display: none; }
   .hamburger { display: flex; }
 }
+
+/* RELEASES */
+.releases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+@media (max-width: 768px) {
+  .releases-grid { grid-template-columns: 1fr; }
+}
+
+.release-card {
+  background: var(--black-2);
+  padding: 28px;
+  transition: background 0.3s;
+}
+.release-card:hover { background: var(--black-3); }
+
+.release-player {
+  margin-bottom: 16px;
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.release-player iframe { display: block; width: 100%; border: none; }
+
+.release-title {
+  font-family: var(--font-display);
+  font-size: 20px; letter-spacing: 1px;
+  color: var(--white); margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.release-artist {
+  font-family: var(--font-ui);
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(240,240,240,0.35); margin-bottom: 8px;
+}
+
+.release-platform {
+  font-family: var(--font-ui);
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--acid); opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .releases-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1023,12 +1074,13 @@ body { animation: pageFade 0.6s ease forwards; }
   <ul class="nav-links">
     <li><a href="events.html">Events</a></li>
     <li><a href="archive.html">Archive</a></li>
+    <li><a href="onair.html">On Air</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <a class="nav-cta" href="https://ra.co/events/2459299" target="_blank" rel="noopener">Tickets on RA</a>
+  <a class="nav-cta" data-ra-link href="https://ra.co/events/2459299" target="_blank" rel="noopener">Tickets on RA</a>
 </nav>
 
 <!-- HERO -->
@@ -1042,11 +1094,11 @@ body { animation: pageFade 0.6s ease forwards; }
 
     <!-- CENTRE CTA — absolutely positioned in the middle -->
     <div class="hero-cta">
-      <span class="hero-cta-label">Breakaway · Dalston Den</span>
-      <a class="hero-cta-btn" href="https://ra.co/events/2459299" target="_blank" rel="noopener">
+      <span class="hero-cta-label" id="heroCtaLabel">Breakaway · Dalston Den</span>
+      <a class="hero-cta-btn" id="heroCtaBtn" data-ra-link href="https://ra.co/events/2459299" target="_blank" rel="noopener">
         Get Tickets on RA
       </a>
-      <span class="hero-cta-sub">Free before midnight · £5 after</span>
+      <span class="hero-cta-sub" id="heroCtaSub">Free before midnight · £5 after</span>
     </div>
 
     <!-- BOTTOM BAR — countdown left, event info right -->
@@ -1081,9 +1133,9 @@ body { animation: pageFade 0.6s ease forwards; }
       </div>
 
       <div class="hero-event">
-        <div class="hero-event-name">Dalston Den · London</div>
-        <div class="hero-event-date">Friday 12 June<br>9PM — 3AM</div>
-        <div class="hero-event-tag">Free Before Midnight</div>
+        <div class="hero-event-name" id="heroEventName">Dalston Den · London</div>
+        <div class="hero-event-date" id="heroEventDate">Friday 12 June<br>9PM — 3AM</div>
+        <div class="hero-event-tag" id="heroEventTag">Free Before Midnight</div>
       </div>
 
     </div>
@@ -1122,7 +1174,15 @@ body { animation: pageFade 0.6s ease forwards; }
 </div>
 
 
-<!-- GALLERY PREVIEW -->
+
+<!-- RELEASES -->
+<div class="section-wrap" style="background:var(--black-3)" id="releases">
+  <div class="section">
+    <div class="section-eyebrow">
+      <span class="section-eyebrow-text">Releases</span>
+      <div class="section-eyebrow-line"></div>
+    </div>
+    <div class="releases-grid"></div>
 <div class="section-wrap" style="background:var(--black)">
   <div class="section">
     <div class="section-eyebrow">
@@ -1150,6 +1210,7 @@ body { animation: pageFade 0.6s ease forwards; }
   <ul class="footer-links">
     <li><a href="https://www.instagram.com/coalition.uk/" target="_blank">Instagram</a></li>
     <li><a href="https://ra.co/promoters/142261" target="_blank">RA</a></li>
+    <li><a href="#" id="pressKitLink">Press Kit ↓</a></li>
   </ul>
 </footer>
 
@@ -1175,8 +1236,9 @@ body { animation: pageFade 0.6s ease forwards; }
   <a href="index.html">Home</a>
   <a href="events.html">Events</a>
   <a href="archive.html">Archive</a>
+  <a href="onair.html">On Air</a>
   <a href="about.html">About</a>
-  <a href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
+  <a data-ra-link href="https://ra.co/events/2459299" target="_blank" class="mobile-cta">Tickets on RA</a>
 </div>
 <script>
 // ── CONFIG ──
@@ -1192,23 +1254,102 @@ const IMAGES = [
   'https://res.cloudinary.com/dbydeabwk/image/upload/q_auto,f_auto/v1780667595/DSC_2930_ld6bui.jpg',
 ];
 
-const SHEET_ID   = '15AJ8D085ZCp1FSD8892cPbR_6Vj2l8Z_80WvPn7x6AE';
-const EVENT_DATE = '2026-06-12T21:00:00';
+const SHEET_ID        = '15AJ8D085ZCp1FSD8892cPbR_6Vj2l8Z_80WvPn7x6AE';
+const EVENTS_SHEET_ID = '11heynoNibd0wQ4HZm-Ss1iGi2EZvATRnrZmnEL371x8';
 
 // ── NAV SCROLL ──
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ── COUNTDOWN ──
-function updateCountdown() {
-  const target = new Date(EVENT_DATE);
-  const now    = new Date();
-  let diff     = target - now;
-  if (diff < 0) {
-    const week = 7 * 24 * 60 * 60 * 1000;
-    diff = week - (Math.abs(diff) % week);
+// ── EVENT DATE PARSING (reads the Sheet's Date + Doors columns) ──
+const MONTHS = { january:0, february:1, march:2, april:3, may:4, june:5,
+                 july:6, august:7, september:8, october:9, november:10, december:11 };
+
+function parseEventDateTime(dateStr, doorsStr) {
+  const dm = (dateStr || '').match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!dm) return null;
+  const day   = parseInt(dm[1], 10);
+  const month = MONTHS[dm[2].toLowerCase()];
+  const year  = parseInt(dm[3], 10);
+  if (month === undefined) return null;
+
+  // Take the first time in "9PM — 3AM" as the start (doors) time
+  let hour = 21, min = 0;
+  const tm = (doorsStr || '').match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+  if (tm) {
+    hour = parseInt(tm[1], 10);
+    min  = tm[2] ? parseInt(tm[2], 10) : 0;
+    const pm = /pm/i.test(tm[3]);
+    if (pm && hour !== 12) hour += 12;
+    if (!pm && hour === 12) hour = 0;
   }
+  return new Date(year, month, day, hour, min, 0);
+}
+
+function parseCsvLine(line) {
+  const cols = []; let cur = '', inQ = false;
+  for (const ch of line) {
+    if (ch === '"') inQ = !inQ;
+    else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  cols.push(cur.trim());
+  return cols;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+// ── NEXT EVENT + COUNTDOWN (live from Google Sheet) ──
+let countdownTarget = null;
+
+function applyHero(e) {
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+  set('heroCtaLabel',  e.name);
+  set('heroCtaSub',    e.entry);
+  set('heroEventName', e.venue);
+  const dateEl = document.getElementById('heroEventDate');
+  if (dateEl) {
+    const dateShort = (e.date || '').replace(/\s+\d{4}$/, ''); // drop the year for the hero
+    dateEl.innerHTML = `${escapeHtml(dateShort)}<br>${escapeHtml(e.doors || '')}`;
+  }
+  set('heroEventTag', /free/i.test(e.entry || '') ? 'Free Before Midnight' : e.entry);
+  if (e.ra_link) document.querySelectorAll('[data-ra-link]').forEach(a => { a.href = e.ra_link; });
+}
+
+async function loadNextEvent() {
+  try {
+    const url  = `https://docs.google.com/spreadsheets/d/${EVENTS_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
+    const res  = await fetch(url);
+    const text = await res.text();
+    const events = text.trim().split('\n').slice(1).map(line => {
+      const c = parseCsvLine(line);
+      return { status:(c[0]||'').toLowerCase(), name:c[1]||'', date:c[2]||'', doors:c[3]||'',
+               entry:c[4]||'', venue:c[5]||'', lineup:c[6]||'', ra_link:c[7]||'', flyer:c[8]||'' };
+    }).map(e => ({ ...e, dt: parseEventDateTime(e.date, e.doors) })).filter(e => e.dt);
+
+    const now = Date.now();
+    // Soonest event (next or upcoming) whose start is still in the future
+    let chosen = events
+      .filter(e => (e.status === 'next' || e.status === 'upcoming') && e.dt.getTime() > now)
+      .sort((a, b) => a.dt - b.dt)[0];
+    // Fallbacks: the labelled "next" row, else the soonest future row of any status
+    if (!chosen) chosen = events.find(e => e.status === 'next');
+    if (!chosen) chosen = events.filter(e => e.dt.getTime() > now).sort((a, b) => a.dt - b.dt)[0];
+
+    if (chosen) { countdownTarget = chosen.dt; applyHero(chosen); }
+  } catch (err) {
+    console.warn('Could not load next event:', err);
+  }
+}
+
+function updateCountdown() {
+  if (!countdownTarget) return;
+  let diff = countdownTarget - new Date();
+  if (diff < 0) diff = 0;
   const d = Math.floor(diff / 86400000);
   const h = Math.floor((diff % 86400000) / 3600000);
   const m = Math.floor((diff % 3600000)  / 60000);
@@ -1218,56 +1359,76 @@ function updateCountdown() {
   document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
   document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
 }
+
+loadNextEvent();
 updateCountdown();
 setInterval(updateCountdown, 1000);
+setInterval(loadNextEvent, 5 * 60 * 1000); // re-check the Sheet every 5 min; auto-advances after each event
 
 // ── HERO SLIDESHOW — loads from GitHub latest folder ──
 async function loadHeroSlideshow() {
   const container = document.getElementById('heroSlides');
+  const CACHE_KEY = 'coalition_hero_images';
+  const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
   try {
-    // Get all folders, pick the latest one
+    // Check sessionStorage cache first
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const { images, ts } = JSON.parse(cached);
+      if (Date.now() - ts < CACHE_TTL && images.length > 0) {
+        buildSlides(container, images);
+        startSlideshow();
+        return;
+      }
+    }
+
+    // Fetch from GitHub
     const rootRes = await fetch('https://api.github.com/repos/anojh99-source/coalition-gallery/contents/images');
     const folders = await rootRes.json();
-
     if (!Array.isArray(folders)) throw new Error('No folders');
 
-    // Always pull from most recent event folder
     const LATEST_FOLDER = 'Breakaway 002';
-    const latest = folders.find(f => f.name === LATEST_FOLDER) 
-      || folders.filter(f => f.type === 'dir' && !['flyers','Flyers','Flyer','flyer'].includes(f.name))
-                .sort((a, b) => b.name.localeCompare(a.name))[0];
+    const latest = folders.find(f => f.name === LATEST_FOLDER)
+      || folders.filter(f => f.type === 'dir' && !['flyers','Flyers','Flyer','flyer','members','Members'].includes(f.name))
+               .sort((a, b) => b.name.localeCompare(a.name))[0];
 
     if (!latest) throw new Error('No albums');
 
     const folderRes = await fetch(latest.url);
     const files     = await folderRes.json();
 
-    const images = files
+    let images = files
       .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name))
-      .slice(0, 9)
-      .map(f => f.download_url.replace('https://raw.githubusercontent.com/', 'https://cdn.jsdelivr.net/gh/').replace('/main/', '@main/'));
+      .slice(0, 5) // limit to 5 for speed
+      .map(f => f.download_url
+        .replace('https://raw.githubusercontent.com/', 'https://cdn.jsdelivr.net/gh/')
+        .replace('/main/', '@main/'));
 
     if (images.length === 0) throw new Error('No images');
 
-    // Shuffle images randomly
+    // Shuffle
     for (let i = images.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [images[i], images[j]] = [images[j], images[i]];
     }
 
-    // Build slides
-    container.innerHTML = images.map((src, i) =>
-      `<div class="hero-slide ${i===0?'active':''}" style="background-image:url('${src}')"></div>`
-    ).join('');
+    // Cache for 30 minutes
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ images, ts: Date.now() }));
+
+    buildSlides(container, images);
 
   } catch(e) {
-    // Fallback — single dark slide
     container.innerHTML = '<div class="hero-slide active"></div>';
   }
 
-  // Start slideshow after images load
   startSlideshow();
+}
+
+function buildSlides(container, images) {
+  container.innerHTML = images.map((src, i) =>
+    `<div class="hero-slide ${i===0?'active':''}" style="background-image:url('${src}')"></div>`
+  ).join('');
 }
 
 function startSlideshow() {
@@ -1558,6 +1719,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// ── RELEASES SHUFFLE ──
+(function() {
+  const releases = [
+    { artist: "Bryn Brax",     title: "Sir Hiss / Sylla Blue (Bryn Brax Edit)", url: "https://soundcloud.com/basedcargo/sir-hiss-sylla-blue-bryn-brax-edit" },
+    { artist: "Bryn Brax",     title: "Be Real / Who's Badder",                  url: "https://soundcloud.com/basedcargo/be-real-whos-badder" },
+    { artist: "Bryn Brax",     title: "Back 2 Basics",                           url: "https://soundcloud.com/basedcargo/bryn-brax-back-2-basics" },
+    { artist: "Blake",         title: "Break Free",                              url: "https://soundcloud.com/djblake1/break-free-1" },
+    { artist: "Blake & Agility",title: "Blake B2B Agility — Corsica Studios",   url: "https://soundcloud.com/djblake1/blake-b2b-agility-corisca-studios-insomnia-13th-nov" },
+    { artist: "Blake",         title: "Junglemania",                             url: "https://soundcloud.com/djblake1/junglemania" },
+
+    { artist: "Dave Zhu",      title: "Sunset in Malta",                         url: "https://soundcloud.com/dav1dzhu/sunset-in-malta" },
+    { artist: "Jay As You Go", title: "Unbreakable Dub",                         url: "https://soundcloud.com/jayasyougo/unbreakable-dub" },
+  ];
+
+  // Shuffle
+  for (let i = releases.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [releases[i], releases[j]] = [releases[j], releases[i]];
+  }
+
+  const grid = document.querySelector('.releases-grid');
+  if (!grid) return;
+
+  grid.innerHTML = releases.map(r => `
+    <div class="release-card">
+      <div class="release-player">
+        <iframe width="100%" height="80" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(r.url)}&color=%23c8ff00&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false">
+        </iframe>
+      </div>
+      <div class="release-title">${r.title}</div>
+      <div class="release-artist">${r.artist}</div>
+      <div class="release-platform">SoundCloud</div>
+    </div>`).join('');
+})();
 </script>
 
 
